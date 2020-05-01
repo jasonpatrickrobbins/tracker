@@ -1,0 +1,102 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>aspnet-Tracker-F986A17F-8ECB-4BAB-9441-C5EDB43600BC</UserSecretsId>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.3"><IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+<PrivateAssets>all</PrivateAssets>
+</PackageReference>
+    <PackageReference Include="bootstrap" Version="4.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\css\get-shit-done-master\index.html" />
+    <Content Remove="wwwroot\css\get-shit-done-master\navbar-transparent.html" />
+    <Content Remove="wwwroot\css\get-shit-done-master\tutorial.html" />
+    <Content Remove="wwwroot\css\get-shit-done-master\LICENSE.md" />
+    <Content Remove="wwwroot\css\get-shit-done-master\components.html" />
+    <Content Remove="wwwroot\css\get-shit-done-master\jquery\jquery-1.10.2.js" />
+    <Content Remove="wwwroot\css\get-shit-done-master\notification.html" />
+    <Content Remove="wwwroot\css\get-shit-done-master\README.md" />
+    <Content Remove="wwwroot\css\get-shit-done-master\jquery\jquery-ui.custom.min.js" />
+    <Content Remove="wwwroot\css\get-shit-done-master\bootstrap3\css\bootstrap.min.css" />
+    <Content Remove="wwwroot\css\get-shit-done-master\bootstrap3\css\font-awesome.css" />
+    <Content Remove="wwwroot\css\get-shit-done-master\bootstrap3\css\bootstrap-theme.min.css" />
+    <Content Remove="wwwroot\css\get-shit-done-master\bootstrap3\css\bootstrap-theme.css" />
+    <Content Remove="wwwroot\css\get-shit-done-master\bootstrap3\js\bootstrap.min.js" />
+    <Content Remove="wwwroot\css\get-shit-done-master\bootstrap3\js\bootstrap.js" />
+    <Content Remove="wwwroot\css\get-shit-done-master\bootstrap3\fonts\fontawesome-webfont.svg" />
+    <Content Remove="wwwroot\css\get-shit-done-master\bootstrap3\fonts\FontAwesome.otf" />
+    <Content Remove="wwwroot\css\get-shit-done-master\bootstrap3\fonts\glyphicons-halflings-regular.woff" />
+    <Content Remove="wwwroot\css\get-shit-done-master\bootstrap3\fonts\glyphicons-halflings-regular.eot" />
+    <Content Remove="wwwroot\css\get-shit-done-master\bootstrap3\fonts\fontawesome-webfont.woff" />
+    <Content Remove="wwwroot\css\get-shit-done-master\bootstrap3\fonts\fontawesome-webfont.ttf" />
+    <Content Remove="wwwroot\css\get-shit-done-master\bootstrap3\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Remove="wwwroot\css\get-shit-done-master\bootstrap3\fonts\fontawesome-webfont.eot" />
+    <Content Remove="wwwroot\css\get-shit-done-master\template.html" />
+    <Content Remove="wwwroot\css\get-shit-done-master\.gitignore" />
+    <Content Remove="wwwroot\css\get-shit-done-master\bootstrap3\fonts\glyphicons-halflings-regular.svg" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\css\demo.css" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\css\gsdk.css" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\js\gsdk-radio.js" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\js\gsdk-checkbox.js" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\js\custom.js" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\js\gsdk-bootstrapswitch.js" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\js\get-shit-done.js" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\js\jquery-ui-1.10.4.custom.min.js" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\img\mockup.png" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\img\apple-icon.png" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\img\carousel_orange.png" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\img\cover_4_blur.jpg" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\img\carousel_red.png" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\img\new_logo.png" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\img\blurred-black-cover.jpeg" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\img\favicon.png" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\img\cover_4.jpg" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\img\bg.jpg" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\img\mask.png" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\img\dulau.jpg" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\img\tim_80x80.png" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\_variables.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\_sliders.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\_carousel.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\_typography.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\mixins\_transparency.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\_misc.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\_buttons.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\_modal.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\_tabs-navs-pagination.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\mixins\_vendor-prefixes.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\mixins\_buttons.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\_mixins.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\mixins\_tabs.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\_tooltips.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\_dropdown.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\_alerts.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\_labels-and-progress-bars.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\_responsive.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\_collapse.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\_inputs.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\_checkbox-radio-switch.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\mixins\_labels.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\img\carousel_green.png" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\mixins\_inputs.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\img\carousel_blue.png" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\mixins\_navbars.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\_navbars.scss" />
+    <Content Remove="wwwroot\css\get-shit-done-master\bootstrap3\css\bootstrap.css" />
+  </ItemGroup>
+</Project>
