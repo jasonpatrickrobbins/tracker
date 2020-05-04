@@ -1,26 +1,10 @@
-﻿/* Main navbar, html, header and body
--------------------------------------*/
+﻿/* Navbar, html, header, body
+-----------------------------*/
 a.navbar-brand {
     white-space: normal;
     text-align: center;
     word-break: break-all;
-}
-
-html {
-    position: relative;
-    min-height: 100%;
-    font-size: 14px;
-}
-
-body {
-    background-color: lightskyblue;
-    font-family: Arial;
-}
-
-/* Provide sufficient contrast against white background
--------------------------------------------------------*/
-a {
-    color: #0366d6;
+    font-size: 45px;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -29,8 +13,6 @@ a {
     border-color: #1861ac;
 }
 
-/* Not sure about these?!?
---------------------------*/
 .border-top {
     border-top: 1px solid #e5e5e5;
 }
@@ -48,28 +30,52 @@ button.accept-policy {
     line-height: inherit;
 }
 
+html {
+    position: relative;
+    min-height: 100%;
+    font-size: 14px;
+}
+
+body {
+    background-color: lightskyblue;
+    font-family: Arial;
+}
+
 /* Sign-up Form Card 
-------------------*/
+--------------------*/
 .signup-form-card {
     background-color: lightcoral;
     border-radius: 3%;
 }
 
-.btn {
-    width: 100%;
-    height: 60px;
-}
-
 /* Add Form Card 
-------------------*/
+----------------*/
 .add-form-card {
-    width: 40%;
     background-color: lightcoral;
     border-radius: 5%;
 }
 
-.navbar-brand {
-    font-size: 45px;
+/* Search and View Form Cards 
+-----------------------------*/
+.search-form-card {
+    background-color: lightcoral;
+    border-radius: 25px 25px 25px 25px;
+}
+
+.view-form-card {
+    background-color: lightcoral;
+    border-radius: 25px 25px 25px 25px;
+}
+
+.space {
+    line-height: 38px;
+}
+
+/* Buttons 
+----------*/
+.btn {
+    width: 100%;
+    height: 60px;
 }
 
 /* Footer 

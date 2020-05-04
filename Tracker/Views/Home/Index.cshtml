@@ -8,59 +8,145 @@
 <br>
 <br>
 
-<!-- Header -->
-<div class="text-center">
-    <h1 class="display-4">Keep up with those little critters!</h1>
+@if (!User.Identity.IsAuthenticated)
+{
+    <!-- Header -->
+    <div class="text-center">
+        <h1 class="display-4">keep up with those little critters!</h1>
+        <br>
+        <h5><strong>Take advantage of our free bug tracking application!</strong></h5>
+    </div>
+
     <br>
-    <h5><strong>Take advantage of our free bug tracking application</strong></h5>
-</div>
+    <br>
+    <br>
 
-<br>
-<br>
-<br>
+    <!-- Landing Main Content -->
+    <div class="container">
+        <div class="row justify-content-center">
 
-<!-- Landing Main Content -->
-<div class="container">
-    <div class="row justify-content-center">
-
-        <div class="col-md-4">
-            <!-- About Icon -->
-            <div class="card-body text-center border-top-0 border-bottom-0 border-right-0 border-left-0">
-                <img src="https://pro.propeller.in/assets/images/icon.svg" />
-                <!-- <img src="~/pictures/bug3.jpg" /> -->
-                <br><br>
-                <h2 class="card-title">Track those bugs!</h2>
-                <h6><strong>Bug tracking for your software</strong></h6>
-                <p class="card-text">Tracker is a completly free and intuitive bug tracking application. It's simple and effective. Sign up today for an account and begin the process of getting those bugs under control. Thank you for considering Tracker. Your software will thank you too!</p>
+            <div class="col-md-4">
+                <!-- About Icon -->
+                <div class="card-body text-center border-top-0 border-bottom-0 border-right-0 border-left-0">
+                    <img src="https://pro.propeller.in/assets/images/icon.svg" />
+                    <!-- <img src="~/pictures/bug3.jpg" /> -->
+                    <br><br>
+                    <h2 class="card-title">Track those bugs!</h2>
+                    <h6><strong>Bug tracking for your software</strong></h6>
+                    <p class="card-text">Tracker is a completly free and intuitive bug tracking application. It's simple and effective. Sign up today for an account and begin the process of getting those bugs under control. Thank you for considering Tracker. Your software will thank you too!</p>
+                </div>
             </div>
-        </div>
 
-        <div class="col-md-4">
-            <!-- Sign-Up Form Card -->
-            <div class="card-body signup-form-card">
-                <h2 class="card-title text-center">Sign up today!</h2>
-                <form>
-                    <div class="form-group">
-                        <input class="form-control form-control-lg" placeholder="Your email." type="text">
-                    </div>
+            <div class="col-md-4">
+                <!-- Sign-Up Form Card -->
+                <div class="card-body signup-form-card">
+                    <h2 class="card-title text-center">Sign up today!</h2>
+                    <form>
+                        <div class="form-group">
+                            <input class="form-control form-control-lg" placeholder="Email" type="text">
+                        </div>
 
-                    <div class="form-group">
-                        <input class="form-control form-control-lg" placeholder="Enter a password." type="text">
-                    </div>
+                        <div class="form-group">
+                            <input class="form-control form-control-lg" placeholder="Password" type="text">
+                        </div>
 
-                    <div class="form-group">
-                        <input class="form-control form-control-lg" placeholder="Confirm password." type="text">
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-outline-primary btn-lg ">Create Account</button>
-                    </div>
-                </form>
+                        <div class="form-group">
+                            <input class="form-control form-control-lg" placeholder="Confirm password" type="text">
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-outline-primary btn-lg ">Create Free Account</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<br>
-<br>
-<br>
-<br>
+    <br>
+    <br>
+    <br>
+    <br>
+}
+else
+{
+    <!-- Signed In Forms -->
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <div class="col-md-5">
+                <!-- Add Form Card -->
+                <div class="card-body add-form-card">
+                    <h2 class="card-title text-center">Add a bug to track</h2><br>
+                    <form>
+                        <div class="form-group">
+                            <input class="form-control form-control-lg" placeholder="Your name" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <input class="form-control form-control-lg" placeholder="The bug's name" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <textarea required class="form-control form-control-lg" placeholder="A description of the bug" rows="3"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea required class="form-control form-control-lg" placeholder="The bug's reproducibility" rows="3"></textarea>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-outline-primary btn-lg ">add item</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-4 justify-content-center">
+
+                <div class="row-md-5">
+                    <!-- Search Form Card -->
+                    <div class="card-body search-form-card">
+                        <h2 class="card-title text-center">Search existing bugs</h2><br>
+                        <form>
+                            <div class="form-group">
+                                <input class="form-control form-control-lg" type="text">
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-outline-dark btn-lg ">search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="space"><br></div>
+
+                <div class="row-md-5">
+                    <!-- View Form Card -->
+                    <div class="card-body view-form-card">
+                        <h2 class="card-title text-center">View existing bugs</h2><br>
+                        <form>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-outline-secondary btn-lg ">resolved items</button>
+                            </div>
+                        </form>
+
+                        <br>
+
+                        <form>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-outline-secondary btn-lg ">unresolved items</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+}
+
