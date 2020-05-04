@@ -99,4 +99,8 @@
     <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\_navbars.scss" />
     <Content Remove="wwwroot\css\get-shit-done-master\bootstrap3\css\bootstrap.css" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\pictures\" />
+    <Folder Include="DAL\" />
+  </ItemGroup>
 </Project>
