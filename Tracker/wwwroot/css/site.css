@@ -67,8 +67,8 @@ body {
     border-radius: 25px 25px 25px 25px;
 }
 
-.space {
-    line-height: 38px;
+.space-3 {
+    line-height: 34px;
 }
 
 /* Buttons 
@@ -88,3 +88,9 @@ body {
     line-height: 60px; /* Vertically center the text there */
     text-align: center;
 }
+
+/* For tablets: */
+@media only screen and (min-width: 600px) {
+}
+    
+ 

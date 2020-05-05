@@ -19,6 +19,7 @@
 <PrivateAssets>all</PrivateAssets>
 </PackageReference>
     <PackageReference Include="bootstrap" Version="4.4.1" />
+    <PackageReference Include="Npgsql" Version="4.1.3.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -98,6 +99,8 @@
     <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\mixins\_navbars.scss" />
     <Content Remove="wwwroot\css\get-shit-done-master\assets\sass\gsdk\_navbars.scss" />
     <Content Remove="wwwroot\css\get-shit-done-master\bootstrap3\css\bootstrap.css" />
+    <Content Remove="wwwroot\pictures\small3.jpg" />
+    <Content Remove="wwwroot\pictures\small1.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\pictures\" />
