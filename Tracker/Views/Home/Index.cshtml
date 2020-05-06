@@ -3,6 +3,20 @@
     ViewData["Title"] = "Home Page";
 }
 
+
+@if ((string)TempData["Referrer"] == "SaveRegister")
+{
+    <div class="alert alert-success">
+        <strong>You have registered successfully</strong>
+    </div>
+}
+else
+{
+    <div class="alert alert-success">
+        <strong>NO</strong>
+    </div>
+}
+
 <br>
 <br>
 <br>
@@ -81,34 +95,24 @@ else
                 <div class="card-body add-form-card">
                     <h2 class="card-title text-center">Add a bug to track</h2><br>
 
-                    @using (Html.BeginForm("AddBug", "HomeController", FormMethod.Post))
+                    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
                     {
-                        <form>
-                            @Html.HiddenFor(m => m.BugId, new { @Value = 0 })
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.SoftwareName, new { @class = "form-control form-control-lg", placeholder = "Software name", type = "text", required = "required" })
+                        </div>
 
-                            <div class="form-group">
-                                @Html.TextBoxFor(m => m.SoftwareName, new { @class = "form-control form-control-lg", placeholder = "Software name", type = "text" })
-                            </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.BugName, new { @class = "form-control form-control-lg", placeholder = "Bug's name", type = "text", required = "required" })
+                        </div>
 
-                            <div class="form-group">
-                                @Html.TextBoxFor(m => m.BugName, new { @class = "form-control form-control-lg", placeholder = "Bug's name", type = "text" })
-                            </div>
+                        <div class="form-group">
+                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control form-control-lg", placeholder = "A description of the bug including if you are able to reproduce it and how.", type = "textarea", rows = "7", required = "required" })
+                        </div>
 
-                            <div class="form-group">
-                                @Html.TextAreaFor(m => m.Description, new { @class = "form-control form-control-lg", placeholder = "A description of the bug including if you are able to reproduce it and how.", type = "textarea", rows = "7" })
-                            </div>
-
-                            @Html.HiddenFor(m => m.Author, new { @Value = User.Identity })
-                            @Html.HiddenFor(m => m.AssignedEngineer, new { @Value = "" })
-                            @Html.HiddenFor(m => m.DateOpened, new { @Value = DateTime.Now })
-                            @Html.HiddenFor(m => m.DateClosed, new { @Value = default(DateTime) })
-
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-outline-primary btn-lg ">add item</button>
-                            </div>
-                        </form>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-outline-primary btn-lg">add item</button>
+                        </div>
                     }
-
                 </div>
             </div>
 
@@ -161,4 +165,147 @@ else
     <br>
     <br>
     <br>
+
+
+
+
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs pull-right" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card-body">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+            </div>
+        </div>
+    </div>
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+    <div class="card text-center">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Active</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+
+
+
+
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+    <strong>Bug Id: </strong> @Html.DisplayFor(m => m.BugId)
+    <br />
+    <strong>Bug Name: </strong> @Html.DisplayFor(m => m.BugName)
+    <br />
+    <strong>Software: </strong> @Html.DisplayFor(m => m.SoftwareName)
+    <br />
+    <strong>Description: </strong> @Html.DisplayFor(m => m.Description)
+    <br />
+    <strong>Author: </strong> @Html.DisplayFor(m => m.Author)
+    <br />
+    <strong>Close Date: </strong> @Html.DisplayFor(m => m.DateClosed)
+    <br />
+
+
+
+
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs" id="bologna-list" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#history" role="tab" aria-controls="history" aria-selected="false">History</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#deals" role="tab" aria-controls="deals" aria-selected="false">Deals</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Bologna</h4>
+                        <h6 class="card-subtitle mb-2">Emilia-Romagna Region, Italy</h6>
+
+                        <div class="tab-content mt-3">
+                            <div class="tab-pane active" id="description" role="tabpanel">
+                                <p class="card-text">It is the seventh most populous city in Italy, at the heart of a metropolitan area of about one million people. </p>
+                                <a href="#" class="card-link text-danger">Read more</a>
+                            </div>
+
+                            <div class="tab-pane" id="history" role="tabpanel" aria-labelledby="history-tab">
+                                <p class="card-text">First settled around 1000 BCE and then founded as the Etruscan Felsina about 500 BCE, it was occupied by the Boii in the 4th century BCE and became a Roman colony and municipium with the name of Bononia in 196 BCE. </p>
+                                <a href="#" class="card-link text-danger">Read more</a>
+                            </div>
+
+                            <div class="tab-pane" id="deals" role="tabpanel" aria-labelledby="deals-tab">
+                                <p class="card-text">Immerse yourself in the colours, aromas and traditions of Emilia-Romagna with a holiday in Bologna, and discover the city's rich artistic heritage.</p>
+                                <a href="#" class="btn btn-danger btn-sm">Get Deals</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+
+
+    <script>function myFunction() { document.getElementById("myForm").reset(); }</script>
+
 }

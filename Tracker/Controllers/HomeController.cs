@@ -27,6 +27,32 @@ namespace Tracker.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Creates a Bug object from information recieved from the Add Bug Form.
+        /// </summary>
+        [HttpPost]
+        public IActionResult Index(Bug bug)
+        {
+
+            bug.BugId = 0;
+            bug.Author = User.Identity.Name;
+            bug.DateOpened = DateTime.Now;
+            bug.DateClosed = DateTime.Now;
+
+            bool success = this.bugDal.AddBugToDatabase(bug);
+
+            if (success)
+            {
+                TempData["Referrer"] = "SaveRegister";
+                return View(bug);
+            }
+            else
+            {
+                TempData["Referrer"] = "NO";
+                return View(bug);
+            }
+        }
+
         public IActionResult Privacy()
         {
             return View();
@@ -36,23 +62,6 @@ namespace Tracker.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        /// <summary>
-        /// Creates a Bug object from information recieved from the Add Bug Form.
-        /// </summary>
-        [HttpPost]
-        public ActionResult AddBug(Bug bug)
-        {
-            bool success = this.bugDal.AddBugToDatabase(bug);
-            if (success)
-            {
-                return View();
-            }
-            else
-            {
-                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-            }
         }
     }
 }

@@ -14,25 +14,26 @@ namespace Tracker.DAL
         {
 
             string insertStatement =
-               "INSERT INTO Bug (" +
-                    "bugName, " +
-                    "softwareName, " +
-                    "author" +
-                    "assignedEngineer, " +
-                    "openDate, " +
-               "VALUES((@bugName), " +
-                    "(@softwareName), " +
-                    "(@assignedEngineer), " +
-                    "(@openDate)";
+               "INSERT INTO bug(" +
+                    "bug_name, " +
+                    "software_name, " +
+                    "description, " +
+                    "author," +
+                    "open_date) " +
+               "VALUES(" +
+                    "@bugName, " +
+                    "@softwareName, " +
+                    "@description, " +
+                    "@author, " +
+                    "current_timestamp)";
 
             using NpgsqlConnection connection = DBConnection.GetConnection();
             NpgsqlCommand command = new NpgsqlCommand(insertStatement, connection);
 
             command.Parameters.AddWithValue("@bugName", bug.BugName);
             command.Parameters.AddWithValue("@softwareName", bug.SoftwareName);
+            command.Parameters.AddWithValue("@description", bug.Description);
             command.Parameters.AddWithValue("@author", bug.Author);
-            command.Parameters.AddWithValue("@assignedEngineer", bug.Description);
-            command.Parameters.AddWithValue("@openDate", bug.DateOpened);
 
             connection.Open();
             int count = command.ExecuteNonQuery();
