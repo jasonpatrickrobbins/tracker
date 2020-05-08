@@ -1,4 +1,5 @@
-﻿@model Tracker.Models.Bug
+﻿@model List<Bug>
+
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -6,25 +7,18 @@
 
 @if ((string)TempData["Referrer"] == "SaveRegister")
 {
-    <div class="alert alert-success">
-        <strong>You have registered successfully</strong>
-    </div>
 }
 else
 {
-    <div class="alert alert-success">
-        <strong>NO</strong>
-    </div>
 }
-
-<br>
-<br>
-<br>
-<br>
-<br>
 
 @if (!User.Identity.IsAuthenticated)
 {
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <!-- Header -->
     <div class="text-center">
         <h1 class="display-4">&mdash; keep up with those little critters &mdash;</h1>
@@ -86,226 +80,319 @@ else
 }
 else
 {
-    <!-- Signed In Forms -->
-    <div class="container">
-        <div class="row justify-content-center">
-
-            <div class="col-md-5">
-                <!-- Add Form Card -->
-                <div class="card-body add-form-card">
-                    <h2 class="card-title text-center">Add a bug to track</h2><br>
-
-                    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-                    {
-                        <div class="form-group">
-                            @Html.TextBoxFor(m => m.SoftwareName, new { @class = "form-control form-control-lg", placeholder = "Software name", type = "text", required = "required" })
-                        </div>
-
-                        <div class="form-group">
-                            @Html.TextBoxFor(m => m.BugName, new { @class = "form-control form-control-lg", placeholder = "Bug's name", type = "text", required = "required" })
-                        </div>
-
-                        <div class="form-group">
-                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control form-control-lg", placeholder = "A description of the bug including if you are able to reproduce it and how.", type = "textarea", rows = "7", required = "required" })
-                        </div>
-
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-outline-primary btn-lg">add item</button>
-                        </div>
-                    }
-                </div>
-            </div>
-
-            <div class="space-2"><br></div>
-
-            <div class="col-md-4 justify-content-center">
-
-                <div class="row-md-5">
-                    <!-- Search Form Card -->
-                    <div class="card-body search-form-card">
-                        <h2 class="card-title text-center">Search existing bugs</h2><br>
-                        <form>
-                            <div class="form-group">
-                                <input class="form-control form-control-lg" type="text">
-                            </div>
-
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-outline-dark btn-lg ">search</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="space-3"><br></div>
-
-                <div class="row-md-5">
-                    <!-- View Form Card -->
-                    <div class="card-body view-form-card">
-                        <h2 class="card-title text-center">View existing bugs</h2><br>
-                        <form>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-outline-secondary btn-lg ">resolved items</button>
-                            </div>
-                        </form>
-
-                        <br>
-
-                        <form>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-outline-secondary btn-lg ">unresolved items</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <br>
     <br>
-    <br>
-    <br>
-
-
-
-
     <div class="card">
-        <div class="card-header">
+        <!-- Card Nav Tabs -->
+        <div class="card-header rounded">
             <ul class="nav nav-tabs card-header-tabs pull-right" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+                    <a class="nav-link active text-center" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Add a Bug</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+                    <a class="nav-link text-center" id="open-tab" data-toggle="tab" href="#open" role="tab" aria-controls="open" aria-selected="false">Open Bugs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+                    <a class="nav-link text-center" id="closed-tab" data-toggle="tab" href="#closed" role="tab" aria-controls="closed" aria-selected="false">Closed Bugs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-center" id="search-tab" data-toggle="tab" href="#search" role="tab" aria-controls="search" aria-selected="false">Search</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-center" id="help-tab" data-toggle="tab" href="#help" role="tab" aria-controls="help" aria-selected="false">Help</a>
                 </li>
             </ul>
         </div>
 
-        <div class="card-body">
+        <!-- Tab Card Body -->
+        <div class="card-body tab-card">
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
-            </div>
-        </div>
-    </div>
 
+                <!-- Home / Add Bug Tab -->
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <!-- Add Form Card -->
+                    <div class="card-body rounded awesome-card">
+                        <br>
+                        <h2 class="card-title text-center">Add a bug to the database to track</h2>
+                        <h5 class="text-muted text-center"><strong>Then view it in the Open Bugs tab &mdash; It'll be right at the top!</strong></h5>
+                        <br>
+                        <br>
 
-    <br>
-    <br>
-    <br>
-    <br>
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                        {
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <textarea required class="form-control form-control-lg" name="software" placeholder="The Software's name." rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <textarea required class="form-control form-control-lg" name="name" placeholder="The bug's name." rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <textarea required class="form-control form-control-lg" name="description" placeholder="A description of the bug including if you are able to reproduce it and how." rows="7"></textarea>
+                                    </div>
+                                </div>
 
-
-    <div class="card text-center">
-        <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Active</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-            </ul>
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-    </div>
-
-
-
-
-
-
-    <br>
-    <br>
-    <br>
-    <br>
-
-
-    <strong>Bug Id: </strong> @Html.DisplayFor(m => m.BugId)
-    <br />
-    <strong>Bug Name: </strong> @Html.DisplayFor(m => m.BugName)
-    <br />
-    <strong>Software: </strong> @Html.DisplayFor(m => m.SoftwareName)
-    <br />
-    <strong>Description: </strong> @Html.DisplayFor(m => m.Description)
-    <br />
-    <strong>Author: </strong> @Html.DisplayFor(m => m.Author)
-    <br />
-    <strong>Close Date: </strong> @Html.DisplayFor(m => m.DateClosed)
-    <br />
-
-
-
-
-
-
-
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-                <div class="card">
-                    <div class="card-header">
-                        <ul class="nav nav-tabs card-header-tabs" id="bologna-list" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#history" role="tab" aria-controls="history" aria-selected="false">History</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#deals" role="tab" aria-controls="deals" aria-selected="false">Deals</a>
-                            </li>
-                        </ul>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-outline-primary btn-lg">add item</button>
+                            </div>
+                        }
                     </div>
-                    <div class="card-body">
-                        <h4 class="card-title">Bologna</h4>
-                        <h6 class="card-subtitle mb-2">Emilia-Romagna Region, Italy</h6>
+                </div>
 
-                        <div class="tab-content mt-3">
-                            <div class="tab-pane active" id="description" role="tabpanel">
-                                <p class="card-text">It is the seventh most populous city in Italy, at the heart of a metropolitan area of about one million people. </p>
-                                <a href="#" class="card-link text-danger">Read more</a>
-                            </div>
+                <!-- Open Bug Tab -->
+                <div class="tab-pane fade" id="open" role="tabpanel" aria-labelledby="open-tab">
 
-                            <div class="tab-pane" id="history" role="tabpanel" aria-labelledby="history-tab">
-                                <p class="card-text">First settled around 1000 BCE and then founded as the Etruscan Felsina about 500 BCE, it was occupied by the Boii in the 4th century BCE and became a Roman colony and municipium with the name of Bononia in 196 BCE. </p>
-                                <a href="#" class="card-link text-danger">Read more</a>
-                            </div>
+                    <div class="card-body rounded awesome-card">
+                        <br>
+                        <h2 class="card-title text-center">View Open Bugs</h2>
+                        <h5 class="text-muted text-center"><strong>Click on a bug's view link to see more detailed information about the bug!</strong></h5>
+                        <br>
 
-                            <div class="tab-pane" id="deals" role="tabpanel" aria-labelledby="deals-tab">
-                                <p class="card-text">Immerse yourself in the colours, aromas and traditions of Emilia-Romagna with a holiday in Bologna, and discover the city's rich artistic heritage.</p>
-                                <a href="#" class="btn btn-danger btn-sm">Get Deals</a>
+                        <table class="table">
+                            <!-- <thead> -->
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Software</th>
+                                <th scope="col">Assigned Engineer</th>
+                                <th scope="col">Date Opened</th>
+                                <th scope="col">View</th>
+                            </tr>
+                            <!-- </thead> -->
+                            <tbody>
+                                @foreach (var bug in Model)
+                                {
+                                    if(bug.DateClosed.ToString() != "01/01/0001 12:00:00")
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(model => bug.BugId)</td>
+                                            <td>@Html.DisplayFor(model => bug.BugName)</td>
+                                            <td>@Html.DisplayFor(model => bug.SoftwareName)</td>
+                                            <td>@Html.DisplayFor(model => bug.AssignedEngineer)</td>
+                                            <td>@Html.DisplayFor(model => bug.DateOpened)</td>
+                                            <td>view</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Close Bug Tab -->
+                <div class="tab-pane fade" id="closed" role="tabpanel" aria-labelledby="closed-tab">
+                    <div class="card-body rounded awesome-card">
+                        <br>
+                        <h2 class="card-title text-center">View Closed Bugs</h2>
+                        <h5 class="text-muted text-center"><strong>Click on a bug's view link to see more detailed information about the bug!</strong></h5>
+                        <br>
+                    </div>
+                </div>
+
+                <!-- Search Bug Tab -->
+                <div class="tab-pane fade" id="search" role="tabpanel" aria-labelledby="search-tab">
+                    <div class="card-body rounded awesome-card">
+                        <br>
+                        <h2 class="card-title text-center">Search for, update or close bugs</h2>
+                        <h5 class="text-muted text-center"><strong>Bug's can't be closed if an engineer has not been assigned or if the description hasn't been updated.</strong></h5>
+                        <br>
+                        <br>
+
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                        {
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <textarea required class="form-control form-control-lg" name="search" placeholder="Search for a Bug." rows="2"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-outline-primary btn-lg">search</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                        }
+
+                        <br>
+                        <br>
+                        <div class="d-flex">
+                            <hr class="my-auto flex-grow-1">
+                            <h5><strong class="px-4">Detailed Bug Data</strong></h5>
+                            <hr class="my-auto flex-grow-1">
                         </div>
+                        <br>
+                        <br>
+
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                        {
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <strong><label class="text-muted">Bug Id</label></strong>
+                                        <input required class="form-control form-control-lg" name="id" type="text">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <strong><label class="text-muted">Software Name</label></strong>
+                                        <input required class="form-control form-control-lg" name="software" type="text">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <strong><label class="text-muted">Bug Name</label></strong>
+                                        <input required class="form-control form-control-lg" name="name" type="text">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <strong><label class="text-muted">Assigned Engineer</label></strong>
+                                        <input required class="form-control form-control-lg" name="engineer" type="text">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <strong><label class="text-muted">Open Date</label></strong>
+                                        <input required class="form-control form-control-lg" name="open" type="text">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <strong><label class="text-muted">Close Date</label></strong>
+                                        <input required class="form-control form-control-lg" name="close" type="text">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <strong><label class="text-muted">Description</label></strong>
+                                        <textarea required class="form-control form-control-lg" name="description" rows="7"></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-outline-primary btn-lg">Update Bug</button>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-outline-primary btn-lg">Close Bug</button>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-outline-primary btn-lg">Delete Bug</button>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-outline-primary btn-lg">Clear Form</button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- Help Tab -->
+                <div class="tab-pane fade" id="help" role="tabpanel" aria-labelledby="help-tab">
+                    <div class="card-body rounded awesome-card">
+                        <br>
+                        <h2 class="card-title text-center">Find out more about Tracker</h2>
+                        <h5 class="text-muted text-center"><strong>Here you'll find some helpful tips about how to take advantage of Tracker!</strong></h5>
+                        <br>
+                        <br>
+                        <h5><strong>Tracking Bugs:</strong></h5>
+                        <p>When adding a new bug to the database all three fields are required:</p>
+                        <p>&emsp; &mdash; Software Name is required</p>
+                        <p>&emsp; &mdash; Bug Name is required</p>
+                        <p>&emsp; &mdash; and Description is required</p>
+                        <br>
+                        <div class="d-flex">
+                            <hr class="my-auto flex-grow-1">
+                            <!-- <div class="px-4">SOME TEXT HERE</div> -->
+                            <hr class="my-auto flex-grow-1">
+                        </div>
+                        <br>
+                        <br>
+                        <h5><strong>Open Bugs:</strong></h5>
+                        <p>The Open Bugs tab provides, all for your viewing pleasure, a beautiful table of currently open bugs. Some information about each bug can be seen; however, by clicking on one of the bug's view links even more detailed information is available. When the link is clicked, this additional information is rendered in the search tab. While viewing this tab, options for updating or closing the currently viewed bug will be availible. You'll also have the option of clearing the form and searching for a different bug.</p>
+                        <br>
+                        <div class="d-flex">
+                            <hr class="my-auto flex-grow-1">
+                            <!-- <div class="px-4">SOME TEXT HERE</div> -->
+                            <hr class="my-auto flex-grow-1">
+                        </div>
+                        <br>
+                        <br>
+                        <h5><strong>Closed Bugs:</strong></h5>
+                        <p>Literally, almost exactly the same as the Open Bugs tab except in this case, you can view bugs which have been - hopefully first fixed - and then closed. Once again, you can also click a bug's view link for additional information. And will be taken to the search tab to view said information.</p>
+                        <br>
+                        <div class="d-flex">
+                            <hr class="my-auto flex-grow-1">
+                            <!-- <div class="px-4">SOME TEXT HERE</div> -->
+                            <hr class="my-auto flex-grow-1">
+                        </div>
+                        <br>
+                        <br>
+                        <h5><strong>Search:</strong></h5>
+                        <p>A multi-function tab! First, you can search for a bug by the bug's id. Once a bug has been located, it will appear in the form below the search box. The bug can now be viewed, updated and closed.</p>
+                        <br>
+                        <div class="d-flex">
+                            <hr class="my-auto flex-grow-1">
+                            <!-- <div class="px-4">SOME TEXT HERE</div> -->
+                            <hr class="my-auto flex-grow-1">
+                        </div>
+                        <br>
+                        <br>
+                        <h5><strong>Updating and Closing Bugs:</strong></h5>
+                        <h6><strong>Updating</strong></h6>
+                        <p>Updating</p>
+                        <h6><strong>Closing</strong></h6>
+                        <p>Closing</p>
+                        <br>
+                        <div class="d-flex">
+                            <hr class="my-auto flex-grow-1">
+                            <!-- <div class="px-4">SOME TEXT HERE</div> -->
+                            <hr class="my-auto flex-grow-1">
+                        </div>
+                        <br>
+                        <br>
+                        <h5><strong>More About Tracker:</strong></h5>
+                        <p>Tracker was established in May of 2020 by Jason Robbins as an in-between semester project. The intial purpose of this project was... </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-
-
-
-
     <br>
     <br>
     <br>
     <br>
-
-
-
+    <br>
 
     <script>function myFunction() { document.getElementById("myForm").reset(); }</script>
-
 }

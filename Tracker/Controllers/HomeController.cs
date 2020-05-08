@@ -22,34 +22,52 @@ namespace Tracker.Controllers
             this.bugDal = new BugDAL();
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
-            return View();
+
+            if (User.Identity.IsAuthenticated)
+            {
+                //List<Bug> closedBugList = this.bugDal.GetOpenBugs(User.Identity.Name);
+                this.bugDal.GetOpenBugs(User.Identity.Name).Clear();
+                return View(this.bugDal.GetOpenBugs(User.Identity.Name));
+            }
+            else
+            {
+                return View();
+            }
         }
 
         /// <summary>
         /// Creates a Bug object from information recieved from the Add Bug Form.
         /// </summary>
         [HttpPost]
-        public IActionResult Index(Bug bug)
+        public IActionResult Index(string software, string name, string description)
         {
-
-            bug.BugId = 0;
-            bug.Author = User.Identity.Name;
-            bug.DateOpened = DateTime.Now;
-            bug.DateClosed = DateTime.Now;
+            Bug bug = new Bug
+            {
+                BugId = 0,
+                SoftwareName = software,
+                BugName = name,
+                Description = description,
+                Author = User.Identity.Name,
+                DateOpened = DateTime.Now,
+                DateClosed = DateTime.Now
+            };
 
             bool success = this.bugDal.AddBugToDatabase(bug);
 
             if (success)
             {
                 TempData["Referrer"] = "SaveRegister";
-                return View(bug);
+                this.bugDal.GetOpenBugs(User.Identity.Name).Clear();
+                return View(this.bugDal.GetOpenBugs(User.Identity.Name));
             }
             else
             {
                 TempData["Referrer"] = "NO";
-                return View(bug);
+                this.bugDal.GetOpenBugs(User.Identity.Name).Clear();
+                return View(this.bugDal.GetOpenBugs(User.Identity.Name));
             }
         }
 
