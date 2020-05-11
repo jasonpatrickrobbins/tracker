@@ -91,7 +91,6 @@ namespace Tracker.DAL
                     Author = author,
                     AssignedEngineer = engineer,
                     DateOpened = opened,
-                    DateClosed = DateTime.Now
                 };
 
                 openBugList.Add(bug);
@@ -134,6 +133,7 @@ namespace Tracker.DAL
                 }
 
                 DateTime opened = (DateTime)reader["open_date"];
+                DateTime closed = (DateTime)reader["close_date"];
 
                 Bug bug = new Bug
                 {
@@ -143,12 +143,33 @@ namespace Tracker.DAL
                     Author = author,
                     AssignedEngineer = engineer,
                     DateOpened = opened,
-                    DateClosed = new DateTime()
+                    DateClosed = closed
                 };
 
                 closedBugList.Add(bug);
             }
 
+            return closedBugList;
+        }
+
+        /// <summary>        /// Updates and returns the selected bug.        /// </summary>
+        public List<Bug> UpdateBug(string author)
+        {
+            List<Bug> closedBugList = new List<Bug>();
+            return closedBugList;
+        }
+
+        /// <summary>        /// Closes and returns the selected bug.        /// </summary>
+        public List<Bug> CloseBug(string author)
+        {
+            List<Bug> closedBugList = new List<Bug>();
+            return closedBugList;
+        }
+
+        /// <summary>        /// Deletes the selected bug.        /// </summary>
+        public List<Bug> DeleteBug(string author)
+        {
+            List<Bug> closedBugList = new List<Bug>();
             return closedBugList;
         }
     }

@@ -41,6 +41,10 @@ body {
     font-family: Arial;
 }
 
+input[type="text"], textarea.form-control {
+    background-color: #fefefa;
+}
+
 /* Sign-up Form Card 
 --------------------*/
 .signup-form-card {
@@ -58,12 +62,20 @@ body {
     border-radius: 25px 25px 0px 0px !important;
 }
 
+.card-header {
+    background-color: #fefefa;
+}
+
 .tab-card {
     background-color: lavenderblush;
 }
 
 .nav-item {
     font-size: 1.5rem;
+}
+
+a.active.nav-link {
+    background-color: lavenderblush !important;
 }
 
 .awesome-card {
