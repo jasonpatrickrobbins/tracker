@@ -5,23 +5,20 @@ using Tracker.Models;
 
 namespace Tracker.DAL
 {
-
     /// <summary>    /// Queries the Bug table in the Tracker Database.    /// </summary>
     public class BugDAL
     {
-
         /// <summary>        /// Adds a bug to the Bug table in the Tracker Database.        /// </summary>
         public bool AddBugToDatabase(Bug bug)
         {
-
             string insertStatement =
                "INSERT INTO bug(" +
-                    "bug_name, " +
-                    "software_name, " +
+                    "name, " +
+                    "software, " +
                     "description, " +
                     "author," +
-                    "assigned_engineer," + 
-                    "open_date) " +
+                    "engineer," + 
+                    "opened) " +
                "VALUES(" +
                     "@bugName, " +
                     "@softwareName, " +
@@ -57,11 +54,11 @@ namespace Tracker.DAL
         {
             List<Bug> openBugList = new List<Bug>();
 
-            string selectStatement = "SELECT id, bug_name, software_name, description, assigned_engineer, open_date, close_date " +
+            string selectStatement = "SELECT id, name, software, description, engineer, opened, closed " +
                                      "FROM bug " +
                                      "WHERE author = @author " +
-                                     "GROUP BY open_date, software_name, assigned_engineer, id " +
-                                     "ORDER BY software_name, open_date DESC";
+                                     "GROUP BY opened, software, engineer, id " +
+                                     "ORDER BY software, opened DESC";
 
             using NpgsqlConnection connection = DBConnection.GetConnection();
             NpgsqlCommand command = new NpgsqlCommand(selectStatement, connection);
@@ -70,31 +67,31 @@ namespace Tracker.DAL
             while (reader.Read())
             {
                 int id = Convert.ToInt32(reader["id"]);
-                string name = reader["bug_name"].ToString();
-                string software = reader["software_name"].ToString();
+                string name = reader["name"].ToString();
+                string software = reader["software"].ToString();
                 string description = reader["description"].ToString();
                 string engineer;
 
-                if (reader["assigned_engineer"] == null || reader["assigned_engineer"] == DBNull.Value)
+                if (reader["engineer"] == null || reader["engineer"] == DBNull.Value)
                 {
                     engineer = "";
                 }
                 else
                 {
-                    engineer = reader["assigned_engineer"].ToString();
+                    engineer = reader["engineer"].ToString();
 
                 }
 
-                DateTime opened = (DateTime)reader["open_date"];
+                DateTime opened = (DateTime)reader["opened"];
                 DateTime closed;
 
-                if (reader["close_date"] == null || reader["close_date"] == DBNull.Value)
+                if (reader["closed"] == null || reader["closed"] == DBNull.Value)
                 {
                     closed = new DateTime();
                 }
                 else
                 {
-                    closed = (DateTime)reader["close_date"];
+                    closed = (DateTime)reader["closed"];
                 }
 
                 Bug bug = new Bug
@@ -118,20 +115,18 @@ namespace Tracker.DAL
         /// <summary>        /// Updates and returns the selected bug.        /// </summary>
         public bool UpdateBug(Bug newBug, Bug oldBug, string author)
         {
-            string updateStatement =                    "UPDATE bug SET " +                        "description = @newDescription, " +                        "assigned_engineer = @newEngineer " +
-                    "WHERE " +                        "id = @id AND " +                        "author = @author AND " +                        "description = @oldDescription AND " +                        "assigned_engineer = @oldEngineer ";
+            string updateStatement =                    "UPDATE bug SET " +                        "description = @newDescription, " +                        "engineer = @newEngineer " +
+                    "WHERE " +                        "id = @id AND " +                        "author = @author AND " +                        "description = @oldDescription AND " +                        "engineer = @oldEngineer ";
 
             using NpgsqlConnection connection = DBConnection.GetConnection();
             NpgsqlCommand command = new NpgsqlCommand(updateStatement, connection);
 
             command.Parameters.AddWithValue("@oldDescription", oldBug.Description);
             command.Parameters.AddWithValue("@oldEngineer", oldBug.AssignedEngineer);
-
-            command.Parameters.AddWithValue("@newDescription", newBug.Description);
-            command.Parameters.AddWithValue("@newEngineer", newBug.AssignedEngineer);
-
             command.Parameters.AddWithValue("@id", newBug.BugId);
             command.Parameters.AddWithValue("@author", newBug.Author);
+            command.Parameters.AddWithValue("@newDescription", newBug.Description);
+            command.Parameters.AddWithValue("@newEngineer", newBug.AssignedEngineer);
 
             connection.Open();
             int count = command.ExecuteNonQuery();
@@ -147,18 +142,38 @@ namespace Tracker.DAL
         }
 
         /// <summary>        /// Closes and returns the selected bug.        /// </summary>
-        public bool CloseBug(int id, string author)
+        public bool CloseBug(Bug bugToClose)
         {
-            List<Bug> closedBugList = new List<Bug>();
+            string updateStatement =                    "UPDATE bug SET " +                        "closed = current_timestamp " +                    "WHERE " +                        "id = @id AND " +                        "name = @bugName AND " +                        "author = @author AND " +                        "description = @description AND " +                        "engineer != @notAssigned AND " +
+                        "opened = @opened AND " +
+                        "closed IS NULL ";
 
-            return true;
+            using NpgsqlConnection connection = DBConnection.GetConnection();
+            NpgsqlCommand command = new NpgsqlCommand(updateStatement, connection);
+
+            command.Parameters.AddWithValue("@id", bugToClose.BugId);
+            command.Parameters.AddWithValue("@bugName", bugToClose.BugName);
+            command.Parameters.AddWithValue("@author", bugToClose.Author);
+            command.Parameters.AddWithValue("@description", bugToClose.Description);
+            command.Parameters.AddWithValue("@notAssigned", "Not Assigned");
+            command.Parameters.AddWithValue("@opened", bugToClose.DateOpened);
+
+            connection.Open();
+            int count = command.ExecuteNonQuery();
+
+            if (count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            };
         }
 
         /// <summary>        /// Deletes the selected bug.        /// </summary>
-        public bool DeleteBug(int id, string author)
+        public bool DeleteBug(Bug bugToDelete)
         {
-            List<Bug> closedBugList = new List<Bug>();
-
             return true;
         }
     }

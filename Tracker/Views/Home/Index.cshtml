@@ -17,11 +17,9 @@
         <br>
         <h5><strong>Take advantage of our free bug tracking application!</strong></h5>
     </div>
-
     <br>
     <br>
     <br>
-
     <!-- Landing Main Content -->
     <div class="container">
         <div class="row justify-content-center">
@@ -37,9 +35,7 @@
                     <p class="card-text">Tracker is a completly free and intuitive bug tracking application. It's simple and effective. Sign up today for an account and begin the process of getting those bugs under control. Thank you for considering Tracker. Your software will thank you too!</p>
                 </div>
             </div>
-
             <div class="space-1"><br></div>
-
             <div class="col-md-4">
                 <!-- Sign-Up Form Card -->
                 <div class="card-body signup-form-card">
@@ -48,11 +44,9 @@
                         <div class="form-group">
                             <input class="form-control form-control-lg" placeholder="Email" type="text">
                         </div>
-
                         <div class="form-group">
                             <input class="form-control form-control-lg" placeholder="Password" type="text">
                         </div>
-
                         <div class="form-group">
                             <input class="form-control form-control-lg" placeholder="Confirm password" type="text">
                         </div>
@@ -64,7 +58,6 @@
             </div>
         </div>
     </div>
-
     <br>
     <br>
     <br>
@@ -76,7 +69,6 @@ else
     <br>
     <!-- ALL TABS -- Card -->
     <div class="card">
-
 
         <!-- ALL TABS -- Card Nav Tabs -->
         <div class="card-header rounded">
@@ -96,33 +88,30 @@ else
             </ul>
         </div>
 
-
         <!-- ALL TABS -- Tab Card Body -->
         <div class="card-body tab-card">
             <div class="tab-content" id="myTabContent">
-
 
                 <!-- Tab:1 -- Home / Add Bug Tab -->
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <!-- Add and Search Form Cards -->
                     <div class="container">
                         <div class="row justify-content-center">
-
                             <div class="card-body rounded awesome-card">
                                 <br>
                                 <h2 class="card-title text-center">Add a new bug or search for an existing one</h2>
                                 <h5 class="text-muted text-center"><strong>View new bugs right at the top of the Open Bugs tab. Searched bugs will appear below. </strong></h5>
                                 <br>
-
                                 <br>
+                                <!-- Line Divider -->
                                 <div class="d-flex">
                                     <hr class="my-auto flex-grow-1">
                                     <h5><strong class="px-4 text-muted">&mdash; Add New Bug &mdash;</strong></h5>
                                     <hr class="my-auto flex-grow-1">
                                 </div>
                                 <br>
-
-                                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "addform" }))
+                                <!-- Add Form -->
+                                @using (Html.BeginForm("NewBug", "Home", FormMethod.Post, new { id = "addform" }))
                                 {
                                     <div class="row">
                                         <div class="col">
@@ -151,17 +140,17 @@ else
                                         </div>
                                     </div>
                                 }
-
                                 <br>
                                 <br>
+                                <!-- Line Divider -->
                                 <div class="d-flex">
                                     <hr class="my-auto flex-grow-1">
                                     <h5><strong class="px-4 text-muted">&mdash; Search By Id &mdash;</strong></h5>
                                     <hr class="my-auto flex-grow-1">
                                 </div>
                                 <br>
-
-                                @using (Html.BeginForm("Index", "Home", FormMethod.Get, new { id = "searchform" }))
+                                <!-- Search Form -->
+                                @using (Html.BeginForm("Search", "Home", FormMethod.Get, new { id = "searchform" }))
                                 {
                                     <div class="row">
                                         <div class="col">
@@ -179,7 +168,7 @@ else
                                     </div>
                                 }
                                 <br />
-
+                                <!-- Update / Close / Delete Form -->
                                 @using (Html.BeginForm("UpdateCloseAndDelete", "Home", FormMethod.Post))
                                 {
                                     @foreach (var bug in Model)
@@ -187,6 +176,7 @@ else
                                         if (bug.BugId == (int)TempData["id"])
                                         {
                                             <br>
+                                            <!-- Line Divider -->
                                             <div class="d-flex">
                                                 <hr class="my-auto flex-grow-1">
                                                 @if ((int)TempData["1"] == 1)
@@ -194,21 +184,19 @@ else
                                                     <h2 class="px-4 card-title text-center">Update, close and delete bugs</h2>
                                                     <!-- <h5 class="text-muted text-center"><strong>Bug's can't be closed if an engineer has not been assigned or if the description hasn't been updated.</strong></h5> -->
                                                 }
-                                                @if ((int)TempData["2"] == 2)
+                                                @if ((int)TempData["1"] == 2)
                                                 {
                                                     <h5><strong class="px-4">Oops! The search value must be numeric.</strong></h5>
                                                 }
-                                                @if ((int)TempData["3"] == 3)
+                                                @if ((int)TempData["1"] == 3)
                                                 {
                                                     <h5><strong class="px-4">Sorry! No bug's with that id were found.</strong></h5>
                                                 }
                                                 <hr class="my-auto flex-grow-1">
                                             </div>
                                             <h5 class="text-muted text-center"><strong>Please see the Help tab for more information about updating, closing and deleting bugs.</strong></h5>
-
                                             <br>
                                             <br>
-
                                             <div class="row">
                                                 <div class="col">
                                                     <div class="form-group">
@@ -247,7 +235,14 @@ else
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <strong><label class="text-muted">Close Date</label></strong>
-                                                        <input class="form-control form-control-lg" name="close" placeholder='@bug.DateClosed' value='@bug.DateClosed' readonly />
+                                                        @if (bug.DateClosed.ToString().Equals("01/01/0001 00:00:00"))
+                                                        {
+                                                            <input class="form-control form-control-lg" name="close" readonly />
+                                                        }
+                                                        else
+                                                        {
+                                                            <input class="form-control form-control-lg" name="close" placeholder='@bug.DateClosed' value='@bug.DateClosed' readonly />
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -262,17 +257,17 @@ else
                                             <div class="row">
                                                 <div class="col">
                                                     <div class="form-group">
-                                                        <button type="submit" class="btn btn-outline-secondary btn-lg" name="update" value="update">Update Bug</button>
+                                                        <button type="submit" class="btn btn-outline-secondary btn-lg" name="submit" value="update">Update Bug</button>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-group">
-                                                        <button type="submit" class="btn btn-outline-secondary btn-lg" name="close" value="close">Close Bug</button>
+                                                        <button type="submit" class="btn btn-outline-secondary btn-lg" name="submit" value="close">Close Bug</button>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-group">
-                                                        <button type="submit" class="btn btn-outline-secondary btn-lg" name="delete" value="delete">Delete Bug</button>
+                                                        <button type="submit" class="btn btn-outline-secondary btn-lg" name="submit" value="delete">Delete Bug</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -284,17 +279,14 @@ else
                     </div>
                 </div>
 
-
-
                 <!-- Tab:2 -- Open Bug Tab -->
                 <div class="tab-pane fade" id="open" role="tabpanel" aria-labelledby="open-tab">
-
                     <div class="card-body rounded awesome-card">
                         <br>
                         <h2 class="card-title text-center">View Open Bugs</h2>
                         <h5 class="text-muted text-center"><strong>Click on a bug's view link to see more detailed information about the bug!</strong></h5>
                         <br>
-
+                        <!-- Open Bugs Table -->
                         <table class="table">
                             <!-- <thead> -->
                             <tr>
@@ -309,7 +301,7 @@ else
                             <tbody>
                                 @foreach (var bug in Model)
                                 {
-                                    if (bug.DateClosed.ToString() != "01/01/0001 12:00:00")
+                                    if (bug.DateClosed.ToString().Equals("01/01/0001 00:00:00"))
                                     {
                                         <tr>
                                             <td>@Html.DisplayFor(model => bug.BugId)</td>
@@ -325,7 +317,6 @@ else
                         </table>
                     </div>
                 </div>
-
 
                 <!-- Tab:3 -- Close Bug Tab -->
                 <div class="tab-pane fade" id="closed" role="tabpanel" aria-labelledby="closed-tab">
@@ -334,7 +325,7 @@ else
                         <h2 class="card-title text-center">View Closed Bugs</h2>
                         <h5 class="text-muted text-center"><strong>Click on a bug's view link to see more detailed information about the bug!</strong></h5>
                         <br>
-
+                        <!-- Closed Bugs Table -->
                         <table class="table">
                             <!-- <thead> -->
                             <tr>
@@ -342,21 +333,21 @@ else
                                 <th scope="col">Name</th>
                                 <th scope="col">Software</th>
                                 <th scope="col">Assigned Engineer</th>
-                                <th scope="col">Date Opened</th>
+                                <th scope="col">Date Closed</th>
                                 <!-- <th scope="col">View</th> -->
                             </tr>
                             <!-- </thead> -->
                             <tbody>
                                 @foreach (var bug in Model)
                                 {
-                                    if (bug.DateClosed.ToString() != "01/01/0001 12:00:00")
+                                    if (!bug.DateClosed.ToString().Equals("01/01/0001 00:00:00"))
                                     {
                                         <tr>
                                             <td>@Html.DisplayFor(model => bug.BugId)</td>
                                             <td>@Html.DisplayFor(model => bug.BugName)</td>
                                             <td>@Html.DisplayFor(model => bug.SoftwareName)</td>
                                             <td>@Html.DisplayFor(model => bug.AssignedEngineer)</td>
-                                            <td>@Html.DisplayFor(model => bug.DateOpened)</td>
+                                            <td>@Html.DisplayFor(model => bug.DateClosed)</td>
                                             <!-- <td><a id="#search">view</a></td> -->
                                         </tr>
                                     }
@@ -366,7 +357,6 @@ else
 
                     </div>
                 </div>
-
 
                 <!-- Tab:4 -- Help Tab -->
                 <div class="tab-pane fade" id="help" role="tabpanel" aria-labelledby="help-tab">
@@ -437,12 +427,9 @@ else
                         <br>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
-
     <br>
     <br>
     <br>
