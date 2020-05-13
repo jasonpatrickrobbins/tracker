@@ -220,7 +220,17 @@ namespace Tracker.Controllers
             //~~~~~~~~DELETE BUG~~~~~~~~//
             else if (submit.Equals("delete"))
             {
-                this.bugDal.DeleteBug(oldBug);
+                bool success = this.bugDal.DeleteBug(oldBug);
+                if (success)
+                {
+                    TempData["id"] = idInt;
+                    TempData["1"] = 1;
+                    return View("Index", this.bugDal.GetAllBugsFromDatabase(User.Identity.Name));
+                }
+                else
+                {
+                    return View();
+                }
             }
 
             TempData["id"] = idInt;

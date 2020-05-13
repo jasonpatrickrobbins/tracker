@@ -174,7 +174,31 @@ namespace Tracker.DAL
         /// <summary>        /// Deletes the selected bug.        /// </summary>
         public bool DeleteBug(Bug bugToDelete)
         {
-            return true;
+            string deleteStatement =                    "DELETE FROM bug " +                                            "WHERE " +                        "id = @id AND " +                        "name = @bugName AND " +                        "author = @author AND " +                        "description = @description AND " +                        "engineer != @notAssigned AND " +
+                        "opened = @opened AND " +
+                        "closed IS NOT NULL ";
+
+            using NpgsqlConnection connection = DBConnection.GetConnection();
+            NpgsqlCommand command = new NpgsqlCommand(deleteStatement, connection);
+
+            command.Parameters.AddWithValue("@id", bugToDelete.BugId);
+            command.Parameters.AddWithValue("@bugName", bugToDelete.BugName);
+            command.Parameters.AddWithValue("@author", bugToDelete.Author);
+            command.Parameters.AddWithValue("@description", bugToDelete.Description);
+            command.Parameters.AddWithValue("@notAssigned", "Not Assigned");
+            command.Parameters.AddWithValue("@opened", bugToDelete.DateOpened);
+
+            connection.Open();
+            int count = command.ExecuteNonQuery();
+
+            if (count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            };
         }
     }
 }
