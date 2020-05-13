@@ -111,8 +111,15 @@ else
                             <div class="card-body rounded awesome-card">
                                 <br>
                                 <h2 class="card-title text-center">Add a new bug or search for an existing one</h2>
-                                <h5 class="text-muted text-center"><strong>View new bugs in the Open Bugs tab &mdash; Right at the top! Searched for bugs will appear below. </strong></h5>
+                                <h5 class="text-muted text-center"><strong>View new bugs right at the top of the Open Bugs tab. Searched bugs will appear below. </strong></h5>
                                 <br>
+
+                                <br>
+                                <div class="d-flex">
+                                    <hr class="my-auto flex-grow-1">
+                                    <h5><strong class="px-4 text-muted">&mdash; Add New Bug &mdash;</strong></h5>
+                                    <hr class="my-auto flex-grow-1">
+                                </div>
                                 <br>
 
                                 @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "addform" }))
@@ -132,22 +139,24 @@ else
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
-                                                <textarea required class="form-control form-control-lg" name="description" placeholder="A description of the bug including if you are able to reproduce it and how." rows="4"></textarea>
+                                                <textarea required class="form-control form-control-lg" name="description" placeholder="A description of the bug including instructions on how to reproduce it if you are able." rows="2"></textarea>
                                             </div>
                                         </div>
-
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-outline-primary btn-lg">add item</button>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div class="text-center">
+                                                    <button type="submit" class="btn btn-outline-secondary btn-lg">add item</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 }
 
                                 <br>
+                                <br>
                                 <div class="d-flex">
                                     <hr class="my-auto flex-grow-1">
-                                    <h5><strong class="px-4 text-muted">&mdash; Search &mdash;</strong></h5>
+                                    <h5><strong class="px-4 text-muted">&mdash; Search By Id &mdash;</strong></h5>
                                     <hr class="my-auto flex-grow-1">
                                 </div>
                                 <br>
@@ -163,27 +172,27 @@ else
                                         <div class="col">
                                             <div class="form-group">
                                                 <div class="text-center">
-                                                    <button type="submit" class="btn btn-outline-primary btn-lg">search</button>
+                                                    <button type="submit" class="btn btn-outline-secondary btn-lg">search</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 }
+                                <br />
 
-                                @using (Html.BeginForm("Update", "Home", FormMethod.Post, new { id = "updateform" }))
+                                @using (Html.BeginForm("UpdateCloseAndDelete", "Home", FormMethod.Post))
                                 {
                                     @foreach (var bug in Model)
                                     {
                                         if (bug.BugId == (int)TempData["id"])
                                         {
                                             <br>
-                                            <br>
                                             <div class="d-flex">
                                                 <hr class="my-auto flex-grow-1">
                                                 @if ((int)TempData["1"] == 1)
                                                 {
-                                                    <h2 class="px-4 card-title text-center">Update, close, and delete bugs</h2>
-                                                   <!-- <h5 class="text-muted text-center"><strong>Bug's can't be closed if an engineer has not been assigned or if the description hasn't been updated.</strong></h5> -->
+                                                    <h2 class="px-4 card-title text-center">Update, close and delete bugs</h2>
+                                                    <!-- <h5 class="text-muted text-center"><strong>Bug's can't be closed if an engineer has not been assigned or if the description hasn't been updated.</strong></h5> -->
                                                 }
                                                 @if ((int)TempData["2"] == 2)
                                                 {
@@ -195,6 +204,8 @@ else
                                                 }
                                                 <hr class="my-auto flex-grow-1">
                                             </div>
+                                            <h5 class="text-muted text-center"><strong>Please see the Help tab for more information about updating, closing and deleting bugs.</strong></h5>
+
                                             <br>
                                             <br>
 
@@ -202,75 +213,66 @@ else
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <strong><label class="text-muted">Bug Id</label></strong>
-                                                        @Html.TextBoxFor(model => bug.BugId, new { @class = "form-control form-control-lg" })
+                                                        <input class="form-control form-control-lg" name="id" placeholder='@bug.BugId' value='@bug.BugId' readonly />
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <strong><label class="text-muted">Software Name</label></strong>
-                                                        @Html.TextBoxFor(model => bug.SoftwareName, new { @class = "form-control form-control-lg" })
+                                                        <input class="form-control form-control-lg" name="software" placeholder='@bug.SoftwareName' value='@bug.SoftwareName' readonly />
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="row">
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <strong><label class="text-muted">Bug Name</label></strong>
-                                                        @Html.TextBoxFor(model => bug.BugName, new { @class = "form-control form-control-lg" })
+                                                        <input class="form-control form-control-lg" name="name" placeholder='@bug.BugName' value='@bug.BugName' readonly />
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <strong><label class="text-muted">Assigned Engineer</label></strong>
-                                                        @Html.TextBoxFor(model => bug.AssignedEngineer, new { @class = "form-control form-control-lg" })
+                                                        <input class="form-control form-control-lg" name="engineer" placeholder='@bug.AssignedEngineer' />
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="row">
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <strong><label class="text-muted">Open Date</label></strong>
-                                                        @Html.TextBoxFor(model => bug.DateOpened, new { @class = "form-control form-control-lg" })
+                                                        <input class="form-control form-control-lg" name="open" placeholder='@bug.DateOpened' value='@bug.DateOpened' readonly />
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <strong><label class="text-muted">Close Date</label></strong>
-                                                        <input class="form-control form-control-lg" type="text" />
+                                                        <input class="form-control form-control-lg" name="close" placeholder='@bug.DateClosed' value='@bug.DateClosed' readonly />
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="row">
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <strong><label class="text-muted">Description</label></strong>
-                                                        @Html.TextAreaFor(model => bug.Description, new { @class = "form-control form-control-lg", @rows = "7" })
+                                                        <textarea class="form-control form-control-lg" name="description" placeholder='@bug.Description' rows="7"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="row">
                                                 <div class="col">
                                                     <div class="form-group">
-                                                        <button type="submit" class="btn btn-outline-primary btn-lg" name="update" value="update">Update Bug</button>
+                                                        <button type="submit" class="btn btn-outline-secondary btn-lg" name="update" value="update">Update Bug</button>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-group">
-                                                        <button type="submit" class="btn btn-outline-primary btn-lg">Close Bug</button>
+                                                        <button type="submit" class="btn btn-outline-secondary btn-lg" name="close" value="close">Close Bug</button>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-group">
-                                                        <button type="submit" class="btn btn-outline-primary btn-lg">Delete Bug</button>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="form-group">
-                                                        <button type="submit" class="btn btn-outline-primary btn-lg">Clear Form</button>
+                                                        <button type="submit" class="btn btn-outline-secondary btn-lg" name="delete" value="delete">Delete Bug</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -301,7 +303,7 @@ else
                                 <th scope="col">Software</th>
                                 <th scope="col">Assigned Engineer</th>
                                 <th scope="col">Date Opened</th>
-                                <th scope="col">View</th>
+                                <!-- <th scope="col">View</th> -->
                             </tr>
                             <!-- </thead> -->
                             <tbody>
@@ -315,7 +317,7 @@ else
                                             <td>@Html.DisplayFor(model => bug.SoftwareName)</td>
                                             <td>@Html.DisplayFor(model => bug.AssignedEngineer)</td>
                                             <td>@Html.DisplayFor(model => bug.DateOpened)</td>
-                                            <td><a id="#search">view</a></td>
+                                            <!-- <td><a id="#search">view</a></td> -->
                                         </tr>
                                     }
                                 }
@@ -332,6 +334,36 @@ else
                         <h2 class="card-title text-center">View Closed Bugs</h2>
                         <h5 class="text-muted text-center"><strong>Click on a bug's view link to see more detailed information about the bug!</strong></h5>
                         <br>
+
+                        <table class="table">
+                            <!-- <thead> -->
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Software</th>
+                                <th scope="col">Assigned Engineer</th>
+                                <th scope="col">Date Opened</th>
+                                <!-- <th scope="col">View</th> -->
+                            </tr>
+                            <!-- </thead> -->
+                            <tbody>
+                                @foreach (var bug in Model)
+                                {
+                                    if (bug.DateClosed.ToString() != "01/01/0001 12:00:00")
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(model => bug.BugId)</td>
+                                            <td>@Html.DisplayFor(model => bug.BugName)</td>
+                                            <td>@Html.DisplayFor(model => bug.SoftwareName)</td>
+                                            <td>@Html.DisplayFor(model => bug.AssignedEngineer)</td>
+                                            <td>@Html.DisplayFor(model => bug.DateOpened)</td>
+                                            <!-- <td><a id="#search">view</a></td> -->
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+
                     </div>
                 </div>
 
@@ -346,24 +378,24 @@ else
                         <br>
                         <h5><strong>Track Tab:</strong></h5>
                         <p>A multi-function tab!</p>
-                        <p>&emsp; 1. Add a new bug to the database. <br /> &emsp; 2. Search for an existing bug by its id. <br /> &emsp; 3. Update a bug. <br /> &emsp; 4. Update a bug. <br /> &emsp; 5. Close a bug. <br /> &emsp; 6. Delete a bug.</p>
+                        <p>&emsp; 1. Add a new bug to the database. <br /> &emsp; 2. Search for an existing bug. <br /> &emsp; 3. Update a bug. <br /> &emsp; 4. Close a bug. <br /> &emsp; 5. Delete a bug.</p>
 
-                        <h6><strong>Adding a bug</strong></h6>
+                        <h6><strong>1. Adding a bug</strong></h6>
                         <p>When adding a new bug to the database all three fields are required:</p>
                         <p>&emsp; &mdash; Software Name is required <br /> &emsp; &mdash; Bug Name is required <br /> &emsp; &mdash; and Description is required</p>
 
-                        <h6><strong>Searching for a bug</strong></h6>
+                        <h6><strong>2. Searching for a bug</strong></h6>
                         <p>Search for an existing bug by entering its id into the search field. If there is a match, the corresponding bug's information will be displayed below the search form. Some of this information is updatable.</p>
 
-                        <h6><strong>Updating a bug</strong></h6>
+                        <h6><strong>3. Updating a bug</strong></h6>
                         <p>Two components of a bug can be updated:</p>
                         <p>&emsp; &mdash; Assigned Engineer <br /> &emsp; &mdash; Description</p>
-                        <p>In fact, these components must be updated in order to close a bug. An engineer must be assigned to an open bug, and as the bug is worked on by the assignied engineer this progress can be used to update the description. In an ideal senario, the final entry to the description would be a summary of the solution. Each time the description is updated, the entry will be placed on a new line and timestamped.</p>
+                        <p>In fact, these components must be updated in order to close a bug. An engineer can be assigned to a bug. The role of engineer can also be reassigned throughout the bug's 'open state' life. Progress made toward correcting the bug can be used to update the bug's description. In an ideal senario, the final entry to the description would be a summary of the bug's solution. Each time the description is updated, the new entry will be timestamped.</p>
 
-                        <h6><strong>Closing a bug</strong></h6>
+                        <h6><strong>4. Closing a bug</strong></h6>
                         <p>Bugs can be closed. Once a bug has been fixed and updated in the database, it's ready to be closed. A closed bug is not removed from the database and can still be viewed in the Closed Bugs tab as well as searched for in the Search tab.</p>
 
-                        <h6><strong>Deleting a bug</strong></h6>
+                        <h6><strong>5. Deleting a bug</strong></h6>
                         <p>A bug must be closed before being eligible for deletion. Deleting a bug will completly remove it from the database. This action cannot be undone. Use caution when making decisions about deleting bugs.</p>
 
                         <br>
