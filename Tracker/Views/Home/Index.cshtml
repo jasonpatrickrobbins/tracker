@@ -335,6 +335,10 @@ else
                         <h2 class="card-title text-center">View Open Bugs</h2>
                         <h5 class="text-muted text-center"><strong>Click on a bug's view link to see more detailed information about the bug!</strong></h5>
                         <br>
+                        <div class="d-flex">
+                            <hr class="my-auto flex-grow-1">
+                        </div>
+                        <br>
                         <!-- Open Bugs Table -->
                         <table class="table">
                             <!-- <thead> -->
@@ -373,6 +377,10 @@ else
                         <br>
                         <h2 class="card-title text-center">View Closed Bugs</h2>
                         <h5 class="text-muted text-center"><strong>Click on a bug's view link to see more detailed information about the bug!</strong></h5>
+                        <br>
+                        <div class="d-flex">
+                            <hr class="my-auto flex-grow-1">
+                        </div>
                         <br>
                         <!-- Closed Bugs Table -->
                         <table class="table">
@@ -414,6 +422,10 @@ else
                         <h2 class="card-title text-center">Find out more about Tracker</h2>
                         <h5 class="text-muted text-center"><strong>Here you'll find some helpful tips about how to take advantage of Tracker!</strong></h5>
                         <br>
+                        <div class="d-flex">
+                            <hr class="my-auto flex-grow-1">
+                        </div>
+                        <br>
                         <br>
                         <h5><strong>Track Tab:</strong></h5>
                         <p>A multi-function tab!</p>
@@ -424,40 +436,37 @@ else
                         <p>&emsp; &mdash; Software Name is required <br /> &emsp; &mdash; Bug Name is required <br /> &emsp; &mdash; and Description is required</p>
 
                         <h6><strong>2. Searching for a bug</strong></h6>
-                        <p>Search for an existing bug by entering its id into the search field. If there is a match, the corresponding bug's information will be displayed below the search form. Some of this information is updatable.</p>
+                        <p>Search for an existing bug - one that is in an open or closed state - by entering its id number into the search field. If there is a match, the corresponding bug's information will be displayed below the search form. Some of this information is updatable.</p>
 
                         <h6><strong>3. Updating a bug</strong></h6>
                         <p>Two components of a bug can be updated:</p>
                         <p>&emsp; &mdash; Assigned Engineer <br /> &emsp; &mdash; Description</p>
-                        <p>In fact, these components must be updated in order to close a bug. An engineer can be assigned to a bug. The role of engineer can also be reassigned throughout the bug's 'open state' life. Progress made toward correcting the bug can be used to update the bug's description. In an ideal senario, the final entry to the description would be a summary of the bug's solution. Each time the description is updated, the new entry will be timestamped.</p>
+                        <p>In fact, these components must be updated in order to close a bug. An engineer can be assigned to a bug. The role of engineer can also be reassigned throughout the bug's 'open' lifespan. Progress made toward correcting the bug can be used to update the bug's description. In an ideal senario, a bug's description would be updated perhaps several times over the course of its 'open' lifespan with the final entry to the description would be a summary of the bug's solution. Each time the description is updated, the new entry will be timestamped. Once a bug is closed, it can no longer be updated.</p>
 
                         <h6><strong>4. Closing a bug</strong></h6>
-                        <p>Bugs can be closed. Once a bug has been fixed and updated in the database, it's ready to be closed. A closed bug is not removed from the database. It can still be viewed in the Closed Bugs tab as well as searched for in the Search tab; however, it can not longer be updated.</p>
+                        <p>Bugs can be closed. Once an engineer has been assigned and a solution has been found, it's ready to be closed. A closed bug is not removed from the database and it can still be viewed in the Closed Bugs tab as well as searched for in the Search tab; however, it can not longer be updated.</p>
 
                         <h6><strong>5. Deleting a bug</strong></h6>
-                        <p>A bug must be closed before being eligible for deletion. Deleting a bug will completly remove it from the database. This action cannot be undone. Use caution when making decisions about deleting bugs.</p>
+                        <p>A bug must be closed before being eligible for deletion. Deleting a bug will completly remove it from the database. This action cannot be undone. Caution should be used when making decisions about deleting bugs.</p>
 
                         <br>
                         <div class="d-flex">
-                            <hr class="my-auto flex-grow-1">
                             <hr class="my-auto flex-grow-1">
                         </div>
                         <br>
                         <br>
                         <h5><strong>Open Tab:</strong></h5>
-                        <p>The Open Bugs tab provides, all for your viewing pleasure, a beautiful table of currently open bugs. Some information about each bug can be seen; however, by clicking on one of the bug's view links even more detailed information is available. When the link is clicked, this additional information is rendered in the search tab. While viewing this tab, options for updating or closing the currently viewed bug will be availible. You'll also have the option of clearing the form and searching for a different bug.</p>
+                        <p>The Open tab provides, all for your viewing pleasure, a beautiful table of currently open bugs. Some information about each bug can be seen; however, by performing a search for this bug on the Track tab, even more detailed information is available. While viewing this tab, options for updating, closing and deleting the currently selected bug will be availible. Please read about these features under the Track tab heading.</p>
                         <br>
                         <div class="d-flex">
-                            <hr class="my-auto flex-grow-1">
                             <hr class="my-auto flex-grow-1">
                         </div>
                         <br>
                         <br>
                         <h5><strong>Closed Tab:</strong></h5>
-                        <p>Literally, almost exactly the same as the Open Bugs tab except in this case, you can view bugs which have been - hopefully first fixed - and then closed. Once again, you can also click a bug's view link for additional information. And will be taken to the search tab to view said information.</p>
+                        <p>The Closed tab is almost exactly the same as the Open Bugs tab except in this case, you can view bugs which have been - first fixed, (hopefully) - and then closed. Closed bugs can also be searched for in the Track tab again. However, they can no longer be updated.</p>
                         <br>
                         <div class="d-flex">
-                            <hr class="my-auto flex-grow-1">
                             <hr class="my-auto flex-grow-1">
                         </div>
                         <br>
@@ -467,12 +476,11 @@ else
                         <br>
                         <div class="d-flex">
                             <hr class="my-auto flex-grow-1">
-                            <hr class="my-auto flex-grow-1">
                         </div>
                         <br>
                         <br>
                         <h5><strong>More About Tracker:</strong></h5>
-                        <p>My name is Jason Robbins and I decided to create Tracker in May of 2020 as an in-between semester project while studing computer science as a graduate student at the University of West Georgia. Thank you so much for checking out my project. If you have time, please check out my <a href="https://github.com/jasonpatrickrobbins">github</a> and <a href="https://www.linkedin.com/in/robbinsjason/">LinkedIn</a>. I also have an in-progress person site at <a href="http://jasonpatrickrobbins.com">jasonpatrickrobbins.com</a>.</p>
+                        <p>My name is Jason Robbins and I decided to create Tracker in May of 2020 as an in-between semester project while studing computer science as a graduate student at the University of West Georgia. Thank you so much for checking out my project. If you have time, please check out my <a href="https://github.com/jasonpatrickrobbins" target="_blank">github</a> and <a href="https://www.linkedin.com/in/robbinsjason/" target="_blank">LinkedIn</a>. I also have an in-progress person site at <a href="http://jasonpatrickrobbins.com" target="_blank">jasonpatrickrobbins.com</a>.</p>
                         <br>
                     </div>
                 </div>
