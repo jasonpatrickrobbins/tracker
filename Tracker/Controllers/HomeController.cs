@@ -54,7 +54,7 @@ namespace Tracker.Controllers
         {
             TempData["id"] = -1;
             TempData["1"] = 0;
-            
+
             Bug newBug = new Bug
             {
                 BugId = 0,
@@ -114,6 +114,7 @@ namespace Tracker.Controllers
                         success = true;
                         TempData["id"] = bug.BugId;
                         TempData["1"] = 1;
+                        ViewBag.Section = "Anchor";
                         return View("Index", this.bugDal.GetAllBugsFromDatabase(User.Identity.Name));
                     }
                 }

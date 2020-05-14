@@ -175,7 +175,7 @@ else
                                     {
                                         if (bug.BugId == (int)TempData["id"])
                                         {
-                                            <br>
+                                            <br />
                                             <!-- Line Divider -->
                                             <div class="d-flex">
                                                 <hr class="my-auto flex-grow-1">
@@ -197,7 +197,22 @@ else
                                             <h5 class="text-muted text-center"><strong>Please see the Help tab for more information about updating, closing and deleting bugs.</strong></h5>
                                             <br>
                                             <br>
-                                            <div class="row">
+                                            <!-- Bug Status -->
+                                            @if (bug.AssignedEngineer.Equals("Not Assigned"))
+                                            {
+                                                <button type="submit" class="btn btn-dark btn-lg" disabled>Bug Status: OPEN &emsp;&emsp;&emsp;&mdash;&emsp;&emsp;&emsp; Bug id# @bug.BugId has not yet been assigned to an engineer.</button>
+                                            }
+                                            else if (bug.DateClosed.ToString().Equals("01/01/0001 00:00:00") && !bug.AssignedEngineer.Equals("Not Assigned"))
+                                            {
+                                                <button type="submit" class="btn btn-dark btn-lg" disabled>Bug Status: OPEN &emsp;&emsp;&emsp;&mdash;&emsp;&emsp;&emsp; Bug id# @bug.BugId is assigned to @bug.AssignedEngineer and can still be further updated.</button>
+                                            }
+                                            else if (!bug.DateClosed.ToString().Equals("01/01/0001 00:00:00"))
+                                            {
+                                                <button type="submit" class="btn btn-dark btn-lg" disabled>Bug Status: CLOSED &emsp;&emsp;&emsp;&mdash;&emsp;&emsp;&emsp; Bug id# @bug.BugId is closed and can no longer be updated.</button>
+                                            }
+                                            <br>
+                                            <br>
+                                            <div id="Anchor" class="row">
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <strong><label class="text-muted">Bug Id</label></strong>
@@ -223,7 +238,7 @@ else
                                                         <strong><label class="text-muted">Assigned Engineer</label></strong>
                                                         @if (!bug.DateClosed.ToString().Equals("01/01/0001 00:00:00"))
                                                         {
-                                                            <input class="form-control form-control-lg" name="engineer" placeholder='@bug.AssignedEngineer' readonly />
+                                                            <input class="form-control form-control-lg" name="engineer" placeholder='@bug.AssignedEngineer' value='@bug.AssignedEngineer' readonly />
                                                         }
                                                         else
                                                         {
@@ -259,13 +274,14 @@ else
                                                         <strong><label class="text-muted">Description</label></strong>
                                                         @if (!bug.DateClosed.ToString().Equals("01/01/0001 00:00:00"))
                                                         {
-                                                            <textarea class="form-control form-control-lg" name="description" placeholder='@bug.Description' rows="7" readonly></textarea>                                                        }
+                                                            <textarea class="form-control form-control-lg" name="description" placeholder='@bug.Description' rows="7" value='@bug.AssignedEngineer' readonly></textarea> }
                                                         else
                                                         {
-                                                            <textarea class="form-control form-control-lg" name="description" placeholder='@bug.Description' rows="7"></textarea>                                                        }
+                                                            <textarea class="form-control form-control-lg" name="description" placeholder='@bug.Description' rows="7"></textarea>}
                                                     </div>
                                                 </div>
                                             </div>
+                                            <br />
                                             <div class="row">
                                                 <div class="col">
                                                     <div class="form-group">
@@ -468,14 +484,12 @@ else
     <br>
     <br>
     <br>
-    <script>
-        function message()
-        {
+    <!-- Confirmation Message -->
+    <script>function message() {
             if (confirm("Updating, closing, and deleting are actions which cannot be undone. Would you like to proceed?") == false) {
                 return false;
             } else {
                 return true;
             }
-        }
-    </script>
+        }</script>
 }
