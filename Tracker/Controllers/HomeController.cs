@@ -182,10 +182,20 @@ namespace Tracker.Controllers
                     updatedDescription = oldBug.Description + " " + "<< UPDATE >> Submitted on " + DateTime.Now + ": " + description;
                 }
 
+                string updatedEngineer;
+                if (string.IsNullOrEmpty(engineer))
+                {
+                    updatedEngineer = oldBug.AssignedEngineer;
+                }
+                else
+                {
+                    updatedEngineer = engineer;
+                }
+
                 Bug newBug = new Bug
                 {
                     BugId = idInt,
-                    AssignedEngineer = engineer,
+                    AssignedEngineer = updatedEngineer,
                     Description = updatedDescription,
                     Author = User.Identity.Name,
                 };
@@ -205,8 +215,7 @@ namespace Tracker.Controllers
             //~~~~~~~~CLOSE BUG~~~~~~~~//
             else if (submit.Equals("close"))
             {
-                bool success = this.bugDal.CloseBug(oldBug);
-                if (success)
+                if (!oldBug.DateClosed.ToString().Equals("01/01/0001 00:00:00") || oldBug.AssignedEngineer.Equals("Not Assigned"))
                 {
                     TempData["id"] = idInt;
                     TempData["1"] = 1;
@@ -214,22 +223,33 @@ namespace Tracker.Controllers
                 }
                 else
                 {
-                    return View();
+                    bool success = this.bugDal.CloseBug(oldBug);
+                    if (success)
+                    {
+                        TempData["id"] = idInt;
+                        TempData["1"] = 1;
+                        return View("Index", this.bugDal.GetAllBugsFromDatabase(User.Identity.Name));
+                    }
                 }
             }
             //~~~~~~~~DELETE BUG~~~~~~~~//
             else if (submit.Equals("delete"))
             {
-                bool success = this.bugDal.DeleteBug(oldBug);
-                if (success)
+                if (!oldBug.DateClosed.ToString().Equals("01/01/0001 00:00:00"))
+                {
+                    bool success = this.bugDal.DeleteBug(oldBug);
+                    if (success)
+                    {
+                        TempData["id"] = idInt;
+                        TempData["1"] = 1;
+                        return View("Index", this.bugDal.GetAllBugsFromDatabase(User.Identity.Name));
+                    }
+                }
+                else
                 {
                     TempData["id"] = idInt;
                     TempData["1"] = 1;
                     return View("Index", this.bugDal.GetAllBugsFromDatabase(User.Identity.Name));
-                }
-                else
-                {
-                    return View();
                 }
             }
 

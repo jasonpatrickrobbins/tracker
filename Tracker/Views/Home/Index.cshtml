@@ -155,7 +155,7 @@ else
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
-                                                <textarea required class="form-control form-control-lg" name="id" placeholder="Search for a Bug by id." rows="2"></textarea>
+                                                <textarea required class="form-control form-control-lg" name="id" placeholder="Search for a Bug by entering its id number. If a match is found, it will appear below." rows="2"></textarea>
                                             </div>
                                         </div>
                                         <div class="col">
@@ -169,7 +169,7 @@ else
                                 }
                                 <br />
                                 <!-- Update / Close / Delete Form -->
-                                @using (Html.BeginForm("UpdateCloseAndDelete", "Home", FormMethod.Post))
+                                @using (Html.BeginForm("UpdateCloseAndDelete", "Home", FormMethod.Post, new { onsubmit = "return message()" }))
                                 {
                                     @foreach (var bug in Model)
                                     {
@@ -221,7 +221,14 @@ else
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <strong><label class="text-muted">Assigned Engineer</label></strong>
-                                                        <input class="form-control form-control-lg" name="engineer" placeholder='@bug.AssignedEngineer' />
+                                                        @if (!bug.DateClosed.ToString().Equals("01/01/0001 00:00:00"))
+                                                        {
+                                                            <input class="form-control form-control-lg" name="engineer" placeholder='@bug.AssignedEngineer' readonly />
+                                                        }
+                                                        else
+                                                        {
+                                                            <input class="form-control form-control-lg" name="engineer" placeholder='@bug.AssignedEngineer' />
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -250,24 +257,50 @@ else
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <strong><label class="text-muted">Description</label></strong>
-                                                        <textarea class="form-control form-control-lg" name="description" placeholder='@bug.Description' rows="7"></textarea>
+                                                        @if (!bug.DateClosed.ToString().Equals("01/01/0001 00:00:00"))
+                                                        {
+                                                            <textarea class="form-control form-control-lg" name="description" placeholder='@bug.Description' rows="7" readonly></textarea>                                                        }
+                                                        else
+                                                        {
+                                                            <textarea class="form-control form-control-lg" name="description" placeholder='@bug.Description' rows="7"></textarea>                                                        }
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col">
                                                     <div class="form-group">
-                                                        <button type="submit" class="btn btn-outline-secondary btn-lg" name="submit" value="update">Update Bug</button>
+                                                        @if (!bug.DateClosed.ToString().Equals("01/01/0001 00:00:00"))
+                                                        {
+                                                            <button type="submit" class="btn btn-outline-secondary btn-lg" name="submit" value="update" disabled>Update Bug</button>
+                                                        }
+                                                        else
+                                                        {
+                                                            <button type="submit" class="btn btn-outline-secondary btn-lg" name="submit" value="update">Update Bug</button>
+                                                        }
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-group">
-                                                        <button type="submit" class="btn btn-outline-secondary btn-lg" name="submit" value="close">Close Bug</button>
+                                                        @if (bug.AssignedEngineer.Equals("Not Assigned") || !bug.DateClosed.ToString().Equals("01/01/0001 00:00:00"))
+                                                        {
+                                                            <button type="submit" class="btn btn-outline-secondary btn-lg" name="submit" value="close" disabled>Close Bug</button>
+                                                        }
+                                                        else
+                                                        {
+                                                            <button type="submit" class="btn btn-outline-secondary btn-lg" name="submit" value="close">Close Bug</button>
+                                                        }
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-group">
-                                                        <button type="submit" class="btn btn-outline-secondary btn-lg" name="submit" value="delete">Delete Bug</button>
+                                                        @if (bug.DateClosed.ToString().Equals("01/01/0001 00:00:00"))
+                                                        {
+                                                            <button type="submit" class="btn btn-outline-secondary btn-lg" name="submit" value="delete" disabled>Delete Bug</button>
+                                                        }
+                                                        else
+                                                        {
+                                                            <button type="submit" class="btn btn-outline-secondary btn-lg" name="submit" value="delete">Delete Bug</button>
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -383,7 +416,7 @@ else
                         <p>In fact, these components must be updated in order to close a bug. An engineer can be assigned to a bug. The role of engineer can also be reassigned throughout the bug's 'open state' life. Progress made toward correcting the bug can be used to update the bug's description. In an ideal senario, the final entry to the description would be a summary of the bug's solution. Each time the description is updated, the new entry will be timestamped.</p>
 
                         <h6><strong>4. Closing a bug</strong></h6>
-                        <p>Bugs can be closed. Once a bug has been fixed and updated in the database, it's ready to be closed. A closed bug is not removed from the database and can still be viewed in the Closed Bugs tab as well as searched for in the Search tab.</p>
+                        <p>Bugs can be closed. Once a bug has been fixed and updated in the database, it's ready to be closed. A closed bug is not removed from the database. It can still be viewed in the Closed Bugs tab as well as searched for in the Search tab; however, it can not longer be updated.</p>
 
                         <h6><strong>5. Deleting a bug</strong></h6>
                         <p>A bug must be closed before being eligible for deletion. Deleting a bug will completly remove it from the database. This action cannot be undone. Use caution when making decisions about deleting bugs.</p>
@@ -435,4 +468,14 @@ else
     <br>
     <br>
     <br>
+    <script>
+        function message()
+        {
+            if (confirm("Updating, closing, and deleting are actions which cannot be undone. Would you like to proceed?") == false) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    </script>
 }
